@@ -1,0 +1,15 @@
+{
+  "name": "xls",
+  "version": "1.0.0",
+  "description": "Test parse xls",
+  "main": "index.js",
+  "dependencies": {
+    "xlsx": "^0.14.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Xaviju",
+  "license": "MIT"
+}
