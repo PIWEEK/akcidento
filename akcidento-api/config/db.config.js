@@ -30,7 +30,7 @@ const db = {
     'modality': require('../model/modality.model.js')(sequelize, Sequelize),
 };
 
-db.contractType.hasOne(db.accident, { foreignKey: 'contractType_id' });
-db.modality.hasOne(db.accident, { foreignKey: 'modality_id' });
+db.contractType.hasOne(db.accident);
+db.modality.hasOne(db.accident);
 
 module.exports = db;
