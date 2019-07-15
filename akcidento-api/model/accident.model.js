@@ -4,12 +4,18 @@ const Modality = require('../model/modality.model');
 module.exports = (sequelize, Sequelize) => {
     const Accident = sequelize.define('accident', {
         year: {
-            type: Sequelize.STRING,
-            allowNull: false
+            type: Sequelize.NUMBER,
+            allowNull: false,
+            notNull: {
+                msg: 'Please enter the year of this data'
+            }
         },
         contractType_id: {
             type: Sequelize.INTEGER,
             allowNull: false,
+            notNull: {
+                msg: 'Please enter a contract type'
+            },
 
             references: {
                 // This is a reference to another model
@@ -25,6 +31,9 @@ module.exports = (sequelize, Sequelize) => {
         modality_id: {
             type: Sequelize.INTEGER,
             allowNull: false,
+            notNull: {
+                msg: 'Please enter a contract modality'
+            },
 
             references: {
                 // This is a reference to another model
@@ -37,9 +46,12 @@ module.exports = (sequelize, Sequelize) => {
                 deferrable: Sequelize.Deferrable.INITIALLY_IMMEDIATE
             }
         },
-        number: {
+        total: {
             type: Sequelize.NUMBER,
-            allowNull: false
+            allowNull: false,
+            notNull: {
+                msg: 'Please enter a total value'
+            },
         }
     });
     

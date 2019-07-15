@@ -1,6 +1,6 @@
 module.exports = (sequelize, Sequelize) => {
     const Modality = sequelize.define('modality', {
-        modality : {
+        name : {
             type: Sequelize.STRING,
             allowNull: false
         },

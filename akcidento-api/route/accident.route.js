@@ -9,7 +9,7 @@ module.exports = function(app) {
     });
  
     // Create a new accident
-    // app.post('/api/accident', accident.create);
+    app.post('/api/accident', accidents.create);
  
     // // Retrieve all Accidents
     app.get('/api/accidents', accidents.findAll);

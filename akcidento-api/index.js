@@ -25,6 +25,8 @@ db.sequelize.sync({force: true}).then(() => {
 });
 
 require('./route/accident.route.js')(app);
+require('./route/contract-type.route')(app);
+require('./route/modality.route')(app);
   
 // Create a Server
 const server = app.listen(8080, function () {

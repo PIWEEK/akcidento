@@ -1,6 +1,6 @@
 module.exports = (sequelize, Sequelize) => {
     const ContractType = sequelize.define('contractType', {
-        type: {
+        name: {
             type: Sequelize.STRING,
             allowNull: false
         }
