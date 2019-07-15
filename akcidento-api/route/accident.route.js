@@ -2,7 +2,7 @@ module.exports = function(app) {
 
     const accidents = require('../controller/accident.controller.js');
 
-    app.get('/', (req, res) => {
+    app.get('/api', (req, res) => {
         res.json({
             info: 'Node.js, Express, and Postgres API'
         })

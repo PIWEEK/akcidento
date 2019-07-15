@@ -1,10 +1,16 @@
 module.exports = (sequelize, Sequelize) => {
-    const Modality = sequelize.define('modality', {
-        name : {
+    const Model = Sequelize.Model;
+
+    class Modality extends Model {}
+    Modality.init({
+        name: {
             type: Sequelize.STRING,
             allowNull: false
-        },
+        }
+    }, {
+        sequelize,
+        modelName: 'modality'
     });
-    
+
     return Modality;
 }
