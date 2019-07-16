@@ -16,14 +16,14 @@ exports.create = (req, res) => {
     })
 };
 
-// // FETCH all contract modality types
-// exports.findAll = (req, res) => {
-//     Modality.findAll().then((modality) => {
-//         res.send(modality);
-//     }).catch((err) => {
-//         res.status(500).send("Error -> " + err);
-//     })
-// };
+// FETCH all contract modality types
+exports.findAll = (req, res) => {
+    Modality.findAll().then((modality) => {
+        res.send(modality);
+    }).catch((err) => {
+        res.status(500).send("Error -> " + err);
+    })
+};
 
 // // Find a contract modality by Id
 // exports.findById = (req, res) => {

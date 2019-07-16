@@ -12,16 +12,16 @@ module.exports = function(app) {
     // app.post('/api/accidents', accidents.create);
  
     // // Retrieve all Accidents
-    app.get('/api/accidents/by-contract', accidents.findAll);
+    app.get('/api/accidents/:groupCriteria', accidents.handleRequest);
  
-    // Retrieve a single Accident by Id
-    app.get('/api/accidents/by-contract/:accidentId', accidents.findById);
+    // // Retrieve a single Accident by Id
+    // app.get('/api/accidents/by-contract/:accidentId', accidents.findById);
 
-    // Retrieve accidents by contract type Id
-    app.get('/api/accidents/by-contract/:contractTypeId', accidents.findByContractType);
+    // // Retrieve accidents by contract type Id
+    // app.get('/api/accidents/by-contract/:contractTypeId', accidents.findByContractType);
  
-    // Retrieve accidents by contract type Id
-    app.get('/api/accidents/by-modality/:modalityId', accidents.findByModality);
+    // // Retrieve accidents by contract type Id
+    // app.get('/api/accidents/by-modality/:modalityId', accidents.findByModality);
  
     // // Update a accident with Id
     // app.put('/api/accident/:accidentId', accident.update);

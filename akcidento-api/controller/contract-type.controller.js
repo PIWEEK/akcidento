@@ -17,13 +17,13 @@ exports.create = (req, res) => {
 };
 
 
-// exports.findAll = (req, res) => {
-//     ContractType.findAll().then((contractType) => {
-//         res.send(contractType);
-//     }).catch((err) => {
-//         res.status(500).send("Error -> " + err);
-//     })
-// };
+exports.findAll = (req, res) => {
+    ContractType.findAll().then((contractType) => {
+        res.send(contractType);
+    }).catch((err) => {
+        res.status(500).send("Error -> " + err);
+    })
+};
 
 // // Find an contractType by Id
 // exports.findById = (req, res) => {

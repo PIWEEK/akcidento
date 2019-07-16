@@ -26,8 +26,8 @@ require('./route/modality.route')(app);
 // Create a Server
 const server = app.listen(8080, function () {
  
-  var host = server.address().address
-  var port = server.address().port
+  var host = server.address().address;
+  var port = server.address().port;
  
-  console.log("App listening at http://%s:%s", host, port)
+  console.log(`App listening at http://${host}:${port}`);
 })
