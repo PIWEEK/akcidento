@@ -2,7 +2,7 @@ const db = require('../config/db.config.js');
 const Modality = db.modality;
 
 exports.createModality = (name) => {
-    Modality.create({
+    return Modality.create({
         name
     });
 }

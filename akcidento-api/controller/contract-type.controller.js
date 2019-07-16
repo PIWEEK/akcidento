@@ -2,10 +2,19 @@ const db = require('../config/db.config.js');
 const ContractType = db.contract_type;
 
 exports.createContractType = (name) => {
-    ContractType.create({
+    return ContractType.create({
         name
-    });
+    })
 }
+
+exports.getContractTypeByName = (name) => {
+    ContractType.findOne({
+        where: {
+          name: name
+        }
+    })
+}
+
 
 exports.create = (req, res) => {
     createContractType(req.body.name)

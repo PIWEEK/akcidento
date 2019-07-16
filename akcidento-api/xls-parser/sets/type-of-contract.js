@@ -29,21 +29,28 @@ const indefiniteContractParents = [
     'Fijo discontinuo',
 ];
 
-db.sequelize.sync({force: true}).then(() => {
-    ct1 = contractTypeController.createContractType(indefiniteContractParents[0]);
-    ct2 = contractTypeController.createContractType(indefiniteContractParents[1]);
-    ct3 = contractTypeController.createContractType(indefiniteContractParents[2]);
+db.sequelize.sync({force: true}).then(async () => {
+    ct1 = await contractTypeController.createContractType(indefiniteContractParents[0]);
+    ct2 = await contractTypeController.createContractType(indefiniteContractParents[1]);
+    ct3 = await contractTypeController.createContractType(indefiniteContractParents[2]);
     
-    m1 = modalityController.createModality('Contrato indefinido');
-    m2 = modalityController.createModality('Contrato temporal');
+    m1 = await modalityController.createModality('Contrato indefinido');
+    m2 = await modalityController.createModality('Contrato temporal');
 
     indefiniteContractJSON.forEach((contractList, index) => {
+        if (index < 6) {
+            contractTypeId = ct1.dataValues.id;
+        } else if (index >= 6 || index < 12) {
+            contractTypeId = ct2.dataValues.id;
+        } else {
+            contractTypeId = ct3.dataValues.id;
+        }
         for (var key in contractList) {
-            console.log(key, contractList[key]);
+            console.log('>>>>>>>>>>>>>>>>>>>>>>', contractTypeId, m1.dataValues.id);
             accidentsController.createAccident(
                 key,
-                1,
-                1,
+                contractTypeId,
+                m1.dataValues.id,
                 contractList[key]
             )
         }
