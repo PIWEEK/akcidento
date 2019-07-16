@@ -1,10 +1,15 @@
 const db = require('../config/db.config.js');
 const Modality = db.modality;
 
-exports.create = (req, res) => {
+exports.createModality = (name) => {
     Modality.create({
-        name: req.body.name,
-    }).then((modality) => {
+        name
+    });
+}
+
+exports.create = (req, res) => {
+    createModality(req.body.name)
+    .then((modality) => {
         res.send(modality);
     }).catch((err) => {
         res.status(500).send("Error -> " + err);

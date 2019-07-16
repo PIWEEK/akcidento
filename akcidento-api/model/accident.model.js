@@ -1,3 +1,6 @@
+const ContractType = require('./contract-type.model.js');
+const Modality = require('./modality.model.js');
+
 module.exports = (sequelize, Sequelize) => {
 
     const Model = Sequelize.Model;
@@ -12,7 +15,7 @@ module.exports = (sequelize, Sequelize) => {
             }
         },
         total: {
-            type: Sequelize.INTEGER,
+            type: Sequelize.REAL,
             allowNull: false,
             notNull: {
                 msg: 'Please enter a total value'
@@ -20,6 +23,7 @@ module.exports = (sequelize, Sequelize) => {
         }
     }, {
         sequelize,
+        underscored: true,
         modelName: 'accident'
     });
 

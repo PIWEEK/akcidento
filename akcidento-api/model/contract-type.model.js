@@ -10,7 +10,7 @@ module.exports = (sequelize, Sequelize) => {
         }
     }, {
         sequelize,
-        modelName: 'contractType'
+        modelName: 'contract_type'
     });
 
     return ContractType;

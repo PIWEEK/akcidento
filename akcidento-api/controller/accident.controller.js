@@ -1,13 +1,23 @@
 const db = require('../config/db.config.js');
-const Accident = db.accident;
+const Accident = db.accidents;
+
+exports.createAccident = (year, contractTypeId, modalityId, total) => {
+    Accident.create({
+        year: year,
+        contract_type_id: contractTypeId,
+        modality_id: modalityId,
+        total: total
+    })
+}
 
 exports.create = (req, res) => {
-    Accident.create({
-        year: req.body.year,
-        contractType_id: req.body.contractType_id,
-        modality_id: req.body.modality_id,
-        total: req.body.total,
-    }).then((accident) => {
+    createAccident(
+        req.body.year,
+        req.body.contract_type_id,
+        req.body.modality_id,
+        req.body.total,
+    )
+    .then((accident) => {
         res.send(accident);
     }).catch((err) => {
         res.status(500).send("Error -> " + err);
@@ -25,7 +35,6 @@ exports.findAll = (req, res) => {
 
 // Find an Accident by Id
 exports.findById = (req, res) => {
-    console.log('findById');
     Accident.findById(req.params.accidentId).then((accident) => {
         res.send(accident);
     }).catch(err => {

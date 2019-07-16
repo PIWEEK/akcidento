@@ -1,10 +1,15 @@
 const db = require('../config/db.config.js');
-const ContractType = db.contractType;
+const ContractType = db.contract_type;
+
+exports.createContractType = (name) => {
+    ContractType.create({
+        name
+    });
+}
 
 exports.create = (req, res) => {
-    ContractType.create({
-        name: req.body.name,
-    }).then((contractType) => {
+    createContractType(req.body.name)
+    .then((contractType) => {
         res.send(contractType);
     }).catch((err) => {
         res.status(500).send("Error -> " + err);
