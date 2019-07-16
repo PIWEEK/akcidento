@@ -9,7 +9,7 @@ module.exports = function(app) {
     app.get('/api/contract-types', contractTypes.findAll);
  
     // Retrieve a single Accident by Id
-    app.get('/api/contract-types/:contractTypeId', contractTypes.findById);
+    // app.get('/api/contract-types/:contractTypeId', contractTypes.findById);
  
     // // Update a accident with Id
     // app.put('/api/contract-types/:contractTypeId', contractTypes.update);

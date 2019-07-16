@@ -9,7 +9,7 @@ module.exports = function(app) {
     app.get('/api/modalities', modality.findAll);
  
     // Retrieve a single modality by Id
-    app.get('/api/modalities/:modalityId', modality.findById);
+    // app.get('/api/modalities/:modalityId', modality.findById);
  
     // Update a modality with Id
     // app.put('/api/modality/:modalityId', modality.update);

@@ -2,20 +2,26 @@ module.exports = function(app) {
 
     const accidents = require('../controller/accident.controller.js');
 
-    app.get('/', (req, res) => {
-        res.json({
-            info: 'Node.js, Express, and Postgres API'
-        })
-    });
+    // app.get('/', (req, res) => {
+    //     res.json({
+    //         info: 'Node.js, Express, and Postgres API'
+    //     })
+    // });
  
     // Create a new accident
-    app.post('/api/accidents', accidents.create);
+    // app.post('/api/accidents', accidents.create);
  
     // // Retrieve all Accidents
-    app.get('/api/accidents', accidents.findAll);
+    app.get('/api/accidents/by-contract', accidents.findAll);
  
     // Retrieve a single Accident by Id
-    app.get('/api/accidents/:accidentId', accidents.findById);
+    app.get('/api/accidents/by-contract/:accidentId', accidents.findById);
+
+    // Retrieve accidents by contract type Id
+    app.get('/api/accidents/by-contract/:contractTypeId', accidents.findByContractType);
+ 
+    // Retrieve accidents by contract type Id
+    app.get('/api/accidents/by-modality/:modalityId', accidents.findByModality);
  
     // // Update a accident with Id
     // app.put('/api/accident/:accidentId', accident.update);
