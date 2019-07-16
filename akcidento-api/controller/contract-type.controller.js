@@ -36,7 +36,7 @@ exports.findAll = (req, res) => {
 
 // Find an contractType by Id
 exports.findById = (req, res) => {
-    ContractType.findById(req.params.contractTypeId).then((contractType) => {
+    ContractType.findByPk(req.params.contractTypeId).then((contractType) => {
         res.send(contractType);
     }).catch(err => {
         res.status(500).send("Error -> " + err);

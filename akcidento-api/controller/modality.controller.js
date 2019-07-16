@@ -27,7 +27,7 @@ exports.findAll = (req, res) => {
 
 // Find a contract modality by Id
 exports.findById = (req, res) => {
-    Modality.findById(req.params.modalityId).then((modality) => {
+    Modality.findByPk(req.params.modalityId).then((modality) => {
         res.send(modality);
     }).catch(err => {
         res.status(500).send("Error -> " + err);

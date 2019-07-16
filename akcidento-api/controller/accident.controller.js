@@ -35,7 +35,7 @@ exports.findAll = (req, res) => {
 
 // Find an Accident by Id
 exports.findById = (req, res) => {
-    Accident.findById(req.params.accidentId).then((accident) => {
+    Accident.findByPk(req.params.accidentId).then((accident) => {
         res.send(accident);
     }).catch(err => {
         res.status(500).send("Error -> " + err);

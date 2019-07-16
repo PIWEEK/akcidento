@@ -21,13 +21,15 @@ const convertToJSON = (range, header) => {
 
 const headers = [2012, 2013, 2014, 2015, 2016, 2017, 2018];
 
-// Indefinite contract data
 const indefiniteContractJSON = convertToJSON("B16:H18", headers);
 const indefiniteContractParents = [
     'A tiempo completo',
     'A tiempo parcial',
     'Fijo discontinuo',
 ];
+
+
+const partTimeContractJSON = convertToJSON("B21:H22", headers);
 
 db.sequelize.sync({force: true}).then(async () => {
     ct1 = await contractTypeController.createContractType(indefiniteContractParents[0]);
@@ -37,21 +39,39 @@ db.sequelize.sync({force: true}).then(async () => {
     m1 = await modalityController.createModality('Contrato indefinido');
     m2 = await modalityController.createModality('Contrato temporal');
 
-    indefiniteContractJSON.forEach((contractList, index) => {
-        if (index < 6) {
+    let contractTypeId;
+    
+    const getContractType = (index) => {
+        if (index === 0) {
             contractTypeId = ct1.dataValues.id;
-        } else if (index >= 6 || index < 12) {
+        } else if (index === 1) {
             contractTypeId = ct2.dataValues.id;
-        } else {
+        } else if (index === 2) {
             contractTypeId = ct3.dataValues.id;
         }
+        return contractTypeId;
+    }
+
+    indefiniteContractJSON.forEach((contractList, index) => {
+        contractTypeId = getContractType(index);
         for (var key in contractList) {
-            console.log('>>>>>>>>>>>>>>>>>>>>>>', contractTypeId, m1.dataValues.id);
             accidentsController.createAccident(
                 key,
                 contractTypeId,
                 m1.dataValues.id,
                 contractList[key]
+            )
+        }
+    })
+
+    partTimeContractJSON.forEach((partTimeList, index) => {
+        contractTypeId = getContractType(index);
+        for (var key in partTimeList) {
+            accidentsController.createAccident(
+                key,
+                contractTypeId,
+                m2.dataValues.id,
+                partTimeList[key]
             )
         }
     })
