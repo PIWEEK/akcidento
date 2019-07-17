@@ -1,6 +1,6 @@
 module.exports = function(app) {
 
-    const accidents = require('../controller/accident.controller.js');
+    const accidentsController = require('../controller/accident.controller.js');
 
     // app.get('/', (req, res) => {
     //     res.json({
@@ -12,7 +12,7 @@ module.exports = function(app) {
     // app.post('/api/accidents', accidents.create);
  
     // // Retrieve all Accidents
-    app.get('/api/accidents/:groupCriteria', accidents.handleRequest);
+    app.get('/api/accidents/:groupCriteria', accidentsController.handleRequest);
  
     // // Retrieve a single Accident by Id
     // app.get('/api/accidents/by-contract/:accidentId', accidents.findById);

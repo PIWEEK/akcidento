@@ -55,7 +55,7 @@ db.sequelize.sync({force: true}).then(async () => {
     indefiniteContractJSON.forEach((contractList, index) => {
         contractTypeId = getContractType(index);
         for (var key in contractList) {
-            accidentsController.createAccident(
+            accidentsController.createAccidentsByContract(
                 key,
                 contractTypeId,
                 m1.dataValues.id,
@@ -67,7 +67,7 @@ db.sequelize.sync({force: true}).then(async () => {
     partTimeContractJSON.forEach((partTimeList, index) => {
         contractTypeId = getContractType(index);
         for (var key in partTimeList) {
-            accidentsController.createAccident(
+            accidentsController.createAccidentsByContract(
                 key,
                 contractTypeId,
                 m2.dataValues.id,

@@ -5,8 +5,8 @@ module.exports = (sequelize, Sequelize) => {
 
     const Model = Sequelize.Model;
 
-    class Accident extends Model {}
-    Accident.init({
+    class AccidentsByContractType extends Model {}
+    AccidentsByContractType.init({
         year: {
             type: Sequelize.INTEGER,
             allowNull: false,
@@ -24,8 +24,8 @@ module.exports = (sequelize, Sequelize) => {
     }, {
         sequelize,
         underscored: true,
-        modelName: 'accident'
+        modelName: 'accidents_by_contract'
     });
 
-    return Accident;
+    return AccidentsByContractType;
 }

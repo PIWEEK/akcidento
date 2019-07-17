@@ -1,8 +1,8 @@
 const db = require('../config/db.config.js');
-const Accident = db.accidents;
+const AccidentsByContract = db.accidents_by_contract;
 
-exports.createAccident = (year, contractTypeId, modalityId, total) => {
-    Accident.create({
+exports.createAccidentsByContract = (year, contractTypeId, modalityId, total) => {
+    AccidentsByContract.create({
         year: year,
         contract_type_id: contractTypeId,
         modality_id: modalityId,
@@ -27,9 +27,7 @@ exports.create = (req, res) => {
 // FETCH all accidents
 exports.handleRequest = (req, res) => {
     const criteria = req.params.groupCriteria;
-    // const source = criteria === 'modality_id' || 'contract_types' ? db.accidents : db.accidents;
-    // console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>', criteria, source);
-    Accident.findAll({
+    AccidentsByContract.findAll({
         attributes: [
             [db.sequelize.fn('SUM', db.sequelize.col('total')), 'total'],
             'year',
