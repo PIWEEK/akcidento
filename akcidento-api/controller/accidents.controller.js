@@ -4,6 +4,7 @@ const accidentsByContract = db.accidents_by_contract;
 
 exports.handleRequest = (req, res) => {
     const criteria = req.params.criteria;
+    console.log(criteria);
 
     const queryBySexSect = ['sex', 'sector', 'sexsect'];
     const queryByContract = ['contract', 'modality', 'conmod'];
@@ -24,24 +25,16 @@ exports.handleRequest = (req, res) => {
             'year',
             [`${criteria}_id`, `${criteria}`]
         ]
-        
         let group = [`${criteria}_id`, 'year'];
+
         if (criteria === 'sexsect') {
-            group = ['sex_id', 'sector_id', 'year'];
+            group = ['year', 'sector_id', 'sex_id'];
             attr = [
                 [db.sequelize.fn('SUM', db.sequelize.col('total')), 'total'],
                 'year',
                 ['sex_id', 'sex'],
                 ['sector_id', 'sector']
             ]
-        }
-
-        options = {
-            attributes: [
-                ...attr,
-            ],
-            group: group,
-            order: ['year']
         }
         model = accidentsBySexSect;
     } else if (queryByContract.includes(criteria)) {
@@ -53,7 +46,7 @@ exports.handleRequest = (req, res) => {
         
         let group = [`${criteria}_id`, 'year'];
         if (criteria === 'conmod') {
-            group = ['contract_type_id', 'modality_id', 'year'];
+            group = ['year', 'contract_type_id', 'modality_id'];
             attr = [
                 [db.sequelize.fn('SUM', db.sequelize.col('total')), 'total'],
                 'year',
@@ -61,15 +54,12 @@ exports.handleRequest = (req, res) => {
                 ['modality_id', 'modality']
             ]
         }
-
-        options = {
-            attributes: [
-                ...attr,
-            ],
-            group: group,
-            order: ['year']
-        }
         model = accidentsByContract;
+    }
+    options = {
+        attributes: attr,
+        group: group,
+        order: group,
     }
     queryBuilder(model, options);
 
