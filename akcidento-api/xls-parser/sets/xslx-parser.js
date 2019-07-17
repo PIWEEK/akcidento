@@ -81,15 +81,15 @@ db.sequelize.sync({force: true}).then(async () => {
         }
     })
 
-    // Fills the API with male and sector accidents
-    maleBySector.forEach(async (maleSectorList, index) => {
+    // Fills the API with female and sector accidents
+    femaleBySector.forEach(async (femaleSectorList, index) => {
         let sectorId = await sectorDataArray[index];
-        for (var key in maleSectorList) {
+        for (var key in femaleSectorList) {
             accidentsBySexSectController.createAccidentsBySexSect(
                 key,
                 sx2.dataValues.id,
                 sectorId.dataValues.id,
-                maleSectorList[key]
+                femaleSectorList[key]
             )
         }
     })
