@@ -19,19 +19,24 @@ exports.handleRequest = (req, res) => {
         })
     })
 
-    let options, model, attr, group, filter = {};
+    let options, model, attr, group, filter, include;
 
     if (queryBySexSect.includes(criteria)) {
+        // Attr definition
         attr = [
             [db.sequelize.fn('SUM', db.sequelize.col('total')), 'total'],
             'year',
             [`${criteria}_id`, `${criteria}`]
         ]
+
+        // Group by definition
         group = [`${criteria}_id`, 'year'];
 
+        // Filter definition
         if (!!req.query.sex) filter.sex_id = req.query.sex;
         if (!!req.query.sector) filter.sector_id = req.query.sector;
 
+        // Multiselector definition
         if (criteria === 'sexsect') {
             group = ['year', 'sector_id', 'sex_id'];
             attr = [
@@ -41,6 +46,14 @@ exports.handleRequest = (req, res) => {
                 ['sector_id', 'sector']
             ]
         }
+
+        // Include definition
+        // include = [{
+        //     model: Task,
+        //     where: { state: Sequelize.col('project.state') }
+        // }]
+
+        //Model definition
         model = accidentsBySexSect;
     } else if (queryByContract.includes(criteria)) {
         attr = [
@@ -76,5 +89,5 @@ exports.handleRequest = (req, res) => {
     }
     queryBuilder(model, options);
 
-    
+
 };
