@@ -25,9 +25,11 @@ sequelize
 const db = {
     'Sequelize': Sequelize,
     'sequelize': sequelize,
-    'accidents_by_contract': require('../model/accidents_by_contract_type.model.js')(sequelize, Sequelize),
+    'accidents_by_contract': require('../model/accidents_by_contract.model.js')(sequelize, Sequelize),
     'contract_type': require('../model/contract-type.model.js')(sequelize, Sequelize),
     'modality': require('../model/modality.model.js')(sequelize, Sequelize),
+    'sector': require('../model/sector.model.js')(sequelize, Sequelize),
+    'sex': require('../model/sex.model.js')(sequelize, Sequelize),
 };
 
 db.contract_type.hasOne(db.accidents_by_contract, {

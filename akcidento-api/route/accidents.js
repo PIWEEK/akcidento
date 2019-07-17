@@ -1,6 +1,6 @@
 module.exports = function(app) {
 
-    const accidentsController = require('../controller/accident.controller.js');
+    const accidentsController = require('../controller/accidents_by_contract_type.model.controller.js');
 
     // app.get('/', (req, res) => {
     //     res.json({

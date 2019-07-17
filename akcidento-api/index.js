@@ -19,7 +19,7 @@ const corsOptions = {
 }
 app.use(cors(corsOptions))
 
-require('./route/accident.route.js')(app);
+require('./route/accidents.route.js')(app);
 require('./route/contract-type.route')(app);
 require('./route/modality.route')(app);
   
