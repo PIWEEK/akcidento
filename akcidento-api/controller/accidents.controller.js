@@ -4,9 +4,6 @@ const accidentsByContract = db.accidents_by_contract;
 
 exports.handleRequest = (req, res) => {
     const criteria = req.params.criteria;
-    const IdFilter = req.query.id;
-    const sectorFilter = req.query.sector;
-    const modalityFilter = req.query.modality;
 
     const queryBySexSect = ['sex', 'sector', 'sexsect'];
     const queryByContract = ['contract', 'modality', 'conmod'];
@@ -19,7 +16,8 @@ exports.handleRequest = (req, res) => {
         })
     })
 
-    let options, model, attr, group, filter, include;
+    let options, model, attr, group;
+    let filter = {};
 
     if (queryBySexSect.includes(criteria)) {
         // Attr definition
@@ -35,6 +33,7 @@ exports.handleRequest = (req, res) => {
         // Filter definition
         if (!!req.query.sex) filter.sex_id = req.query.sex;
         if (!!req.query.sector) filter.sector_id = req.query.sector;
+        if (!!req.query.year) filter.year = req.query.year;
 
         // Multiselector definition
         if (criteria === 'sexsect') {
@@ -56,20 +55,23 @@ exports.handleRequest = (req, res) => {
         //Model definition
         model = accidentsBySexSect;
     } else if (queryByContract.includes(criteria)) {
+        // Attr definition
         attr = [
             [db.sequelize.fn('SUM', db.sequelize.col('total')), 'total'],
             'year',
             [`${criteria}_id`, `${criteria}`]
         ]
+
+        // Group by definition
         group = [`${criteria}_id`, 'year'];
-        filter = {
-            'modality_id': req.query.modality,
-            'type_of_contract_id': req.query.type_of_contract
-        };
 
-        if (!!req.query.modality) filter.modality_id = req.query.modality;
+        // Filter definition
+        if (!!req.query.modality) filter.modality = req.query.modality;
         if (!!req.query.type_of_contract) filter.type_of_contract_id = req.query.type_of_contract;
+        if (!!req.query.year) filter.year = req.query.year;
 
+
+        // Multiselector definition
         if (criteria === 'conmod') {
             group = ['year', 'contract_type_id', 'modality_id'];
             attr = [
@@ -79,8 +81,10 @@ exports.handleRequest = (req, res) => {
                 ['modality_id', 'modality']
             ]
         }
+
         model = accidentsByContract;
     }
+    console.log(filter);
     options = {
         attributes: attr,
         group: group,
