@@ -4,7 +4,9 @@ const accidentsByContract = db.accidents_by_contract;
 
 exports.handleRequest = (req, res) => {
     const criteria = req.params.criteria;
-    console.log(criteria);
+    const IdFilter = req.query.id;
+    const sectorFilter = req.query.sector;
+    const modalityFilter = req.query.modality;
 
     const queryBySexSect = ['sex', 'sector', 'sexsect'];
     const queryByContract = ['contract', 'modality', 'conmod'];
@@ -17,15 +19,18 @@ exports.handleRequest = (req, res) => {
         })
     })
 
-    let options, model;
+    let options, model, attr, group, filter = {};
 
     if (queryBySexSect.includes(criteria)) {
-        let attr = [
+        attr = [
             [db.sequelize.fn('SUM', db.sequelize.col('total')), 'total'],
             'year',
             [`${criteria}_id`, `${criteria}`]
         ]
-        let group = [`${criteria}_id`, 'year'];
+        group = [`${criteria}_id`, 'year'];
+
+        if (!!req.query.sex) filter.sex_id = req.query.sex;
+        if (!!req.query.sector) filter.sector_id = req.query.sector;
 
         if (criteria === 'sexsect') {
             group = ['year', 'sector_id', 'sex_id'];
@@ -38,13 +43,20 @@ exports.handleRequest = (req, res) => {
         }
         model = accidentsBySexSect;
     } else if (queryByContract.includes(criteria)) {
-        let attr = [
+        attr = [
             [db.sequelize.fn('SUM', db.sequelize.col('total')), 'total'],
             'year',
             [`${criteria}_id`, `${criteria}`]
         ]
-        
-        let group = [`${criteria}_id`, 'year'];
+        group = [`${criteria}_id`, 'year'];
+        filter = {
+            'modality_id': req.query.modality,
+            'type_of_contract_id': req.query.type_of_contract
+        };
+
+        if (!!req.query.modality) filter.modality_id = req.query.modality;
+        if (!!req.query.type_of_contract) filter.type_of_contract_id = req.query.type_of_contract;
+
         if (criteria === 'conmod') {
             group = ['year', 'contract_type_id', 'modality_id'];
             attr = [
@@ -60,6 +72,7 @@ exports.handleRequest = (req, res) => {
         attributes: attr,
         group: group,
         order: group,
+        where: filter
     }
     queryBuilder(model, options);
 
