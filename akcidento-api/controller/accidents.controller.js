@@ -22,7 +22,7 @@ exports.handleRequest = (req, res) => {
         let attr = [
             [db.sequelize.fn('SUM', db.sequelize.col('total')), 'total'],
             'year',
-            [db.sequelize.col(`${criteria}_id`), `${criteria}`]
+            [`${criteria}_id`, `${criteria}`]
         ]
         
         let group = [`${criteria}_id`, 'year'];
@@ -31,8 +31,8 @@ exports.handleRequest = (req, res) => {
             attr = [
                 [db.sequelize.fn('SUM', db.sequelize.col('total')), 'total'],
                 'year',
-                'sex_id',
-                'sector_id'
+                ['sex_id', 'sex'],
+                ['sector_id', 'sector']
             ]
         }
 
@@ -48,7 +48,7 @@ exports.handleRequest = (req, res) => {
         let attr = [
             [db.sequelize.fn('SUM', db.sequelize.col('total')), 'total'],
             'year',
-            [db.sequelize.col(`${criteria}_id`), `${criteria}`]
+            [`${criteria}_id`, `${criteria}`]
         ]
         
         let group = [`${criteria}_id`, 'year'];
@@ -57,8 +57,8 @@ exports.handleRequest = (req, res) => {
             attr = [
                 [db.sequelize.fn('SUM', db.sequelize.col('total')), 'total'],
                 'year',
-                'contract_type_id',
-                'sectmodality_idor_id'
+                ['contract_type_id', 'contract_type'],
+                ['modality_id', 'modality']
             ]
         }
 
