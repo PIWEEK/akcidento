@@ -12,8 +12,10 @@ const db = require('../../config/db.config.js');
 const contractTypeController = require("../../controller/contract-type.controller");
 const modalityController = require("../../controller/modality.controller.js");
 const accidentsByContractController = require("../../controller/accidents-by-contract.controller.js");
+
 const sectorController = require("../../controller/sector.controller.js");
 const sexController = require("../../controller/sex.controller.js");
+const accidentsBySexSectController = require("../../controller/accidents-by-sexsect.controller");
 
 // Get the XLSX tab
 const typeOfContract = workbook.Sheets['ATR-I.1.6'];
@@ -41,7 +43,7 @@ const maleBySector = convertToJSON(bySectorAndSex, "H37:N57", headers);
 const femaleBySector = convertToJSON(bySectorAndSex, "H62:N82", headers);
 
 // Parse columns to get the sectors name
-var rangeBySector = XLSX.utils.decode_range(bySectorAndSex['!ref']);
+const rangeBySector = XLSX.utils.decode_range(bySectorAndSex['!ref']);
 const parseSectorColumns = (range) => {
     let startRange, endRange;
     let sectorArray = []
@@ -61,8 +63,35 @@ db.sequelize.sync({force: true}).then(async () => {
     sx2 = await sexController.createSex('mujeres');
 
     // Fill sector database
-    sectorArray.forEach(async (sector, index) => {
-        await sectorController.createSector(sectorArray[index]);
+    const sectorDataArray = sectorArray.map(async (sector, index) => {
+        let sd = await sectorController.createSector(sector);
+        return sd;
+    });
+
+    // Fills the API with male and sector accidents
+    maleBySector.forEach(async (maleSectorList, index) => {
+        let sectorId = await sectorDataArray[index];
+        for (var key in maleSectorList) {
+            accidentsBySexSectController.createAccidentsBySexSect(
+                key,
+                sx1.dataValues.id,
+                sectorId.dataValues.id,
+                maleSectorList[key]
+            )
+        }
+    })
+
+    // Fills the API with male and sector accidents
+    maleBySector.forEach(async (maleSectorList, index) => {
+        let sectorId = await sectorDataArray[index];
+        for (var key in maleSectorList) {
+            accidentsBySexSectController.createAccidentsBySexSect(
+                key,
+                sx2.dataValues.id,
+                sectorId.dataValues.id,
+                maleSectorList[key]
+            )
+        }
     })
 
     const indefiniteContractParents = [

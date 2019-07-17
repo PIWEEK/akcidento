@@ -26,6 +26,7 @@ const db = {
     'Sequelize': Sequelize,
     'sequelize': sequelize,
     'accidents_by_contract': require('../model/accidents_by_contract.model.js')(sequelize, Sequelize),
+    'accidents_by_sexsect': require('../model/accidents_by_sexsect.model.js')(sequelize, Sequelize),
     'contract_type': require('../model/contract-type.model.js')(sequelize, Sequelize),
     'modality': require('../model/modality.model.js')(sequelize, Sequelize),
     'sector': require('../model/sector.model.js')(sequelize, Sequelize),
@@ -38,6 +39,14 @@ db.contract_type.hasOne(db.accidents_by_contract, {
 
 db.modality.hasOne(db.accidents_by_contract, {
   foreignKey: 'modality_id'
+});
+
+db.sex.hasOne(db.accidents_by_sexsect, {
+  foreignKey: 'sex_id'
+});
+
+db.sector.hasOne(db.accidents_by_sexsect, {
+  foreignKey: 'sector_id'
 });
 
 module.exports = db;
