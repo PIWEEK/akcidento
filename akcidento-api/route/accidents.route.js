@@ -12,7 +12,7 @@ module.exports = function(app) {
     // app.post('/api/accidents', accidents.create);
  
     // // Retrieve all Accidents
-    app.get('/api/accidents/:groupCriteria', accidentsController.handleRequest);
+    app.get('/api/accidents/:criteria', accidentsController.handleRequest);
  
     // // Retrieve a single Accident by Id
     // app.get('/api/accidents/by-contract/:accidentId', accidents.findById);

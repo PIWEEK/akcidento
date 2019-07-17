@@ -3,10 +3,10 @@ const accidentsBySexSect = db.accidents_by_sexsect;
 const accidentsByContract = db.accidents_by_contract;
 
 exports.handleRequest = (req, res) => {
-    const criteria = req.params.groupCriteria;
+    const criteria = req.params.criteria;
 
-    const queryBySexSect = ['sex', 'sector'];
-    const queryByContract = ['contract-type', 'modality'];
+    const queryBySexSect = ['sex', 'sector', 'sexsect'];
+    const queryByContract = ['contract', 'modality', 'conmod'];
 
     const queryBuilder = ((table, options) => {
         table.findAll(options).then((accidents) => {
@@ -16,31 +16,62 @@ exports.handleRequest = (req, res) => {
         })
     })
 
+    let options, model;
+
     if (queryBySexSect.includes(criteria)) {
-        const options = {
-            attributes: [
+        let attr = [
+            [db.sequelize.fn('SUM', db.sequelize.col('total')), 'total'],
+            'year',
+            [db.sequelize.col(`${criteria}_id`), `${criteria}`]
+        ]
+        
+        let group = [`${criteria}_id`, 'year'];
+        if (criteria === 'sexsect') {
+            group = ['sex_id', 'sector_id', 'year'];
+            attr = [
                 [db.sequelize.fn('SUM', db.sequelize.col('total')), 'total'],
                 'year',
                 'sex_id',
-                'sector_id',
-            ],
-            group: ['year', criteria],
-            order: ['year', criteria, 'sector_id', 'sex_id']
+                'sector_id'
+            ]
         }
-        queryBuilder(accidentsBySexSect, options);
-    } else if (queryByqueryByContractSexSect.includes(criteria)) {
-        const options = {
+
+        options = {
             attributes: [
+                ...attr,
+            ],
+            group: group,
+            order: ['year']
+        }
+        model = accidentsBySexSect;
+    } else if (queryByContract.includes(criteria)) {
+        let attr = [
+            [db.sequelize.fn('SUM', db.sequelize.col('total')), 'total'],
+            'year',
+            [db.sequelize.col(`${criteria}_id`), `${criteria}`]
+        ]
+        
+        let group = [`${criteria}_id`, 'year'];
+        if (criteria === 'conmod') {
+            group = ['contract_type_id', 'modality_id', 'year'];
+            attr = [
                 [db.sequelize.fn('SUM', db.sequelize.col('total')), 'total'],
                 'year',
                 'contract_type_id',
-                'modality_id',
-            ],
-            group: ['year', criteria],
-            order: ['year', criteria]
+                'sectmodality_idor_id'
+            ]
         }
-        queryBuilder(accidentsByContract, options);
+
+        options = {
+            attributes: [
+                ...attr,
+            ],
+            group: group,
+            order: ['year']
+        }
+        model = accidentsByContract;
     }
+    queryBuilder(model, options);
 
     
 };
