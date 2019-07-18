@@ -10,6 +10,7 @@
 /* ==========================================================================
    Base styles: opinionated defaults
    ========================================================================== */
+@import url('https://fonts.googleapis.com/css?family=Literata:400,600&display=swap');
 
 html {
   color: #222;
@@ -17,6 +18,9 @@ html {
   line-height: 1.4;
 }
 
+h1, h2, h3 {
+  font-family: 'Literata', serif;
+}
 /*
  * Remove text-shadow in selection highlight:
  * https://twitter.com/miketaylr/status/12228805301
@@ -97,6 +101,61 @@ textarea {
 /* ==========================================================================
    Author's custom styles
    ========================================================================== */
+
+.wrapper {
+  width: 100vw;
+  min-height: 100vh;
+  background: rgba(255, 161, 161, 0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+header {
+  position: sticky;
+  top: 0;
+}
+
+header a {
+  padding: 1rem;
+  margin: 0 0.5rem;
+  display: inline-block;
+}
+
+.inner {
+  /* This will make it stack on top of the ::before */
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  justify-content: center;  
+  width: 80ch;
+  height: 80vh;
+  text-align: center;
+}
+
+.inner-graph {
+  width: 80vw;
+  height: 80vh;
+  margin-top: 4rem;
+}
+
+.title {
+  font-size: 4rem;
+  margin-bottom: 0;
+  color: brown;
+}
+
+.nav {
+  margin-top: 4rem;
+}
+
+.nav > .btn {
+  background: white;
+  color: black;
+  padding: 1rem;
+  margin: 0 0.5rem;
+}
+
 
 /* ==========================================================================
    Helper classes

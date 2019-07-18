@@ -1,0 +1,42 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+  <meta charset="utf-8">
+  <title>Akcidento</title>
+  <meta name="description" content="API de accidentes laborales generada a partir de las Estadística de Accidentes de Trabajo del ministerio de trabajo ">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="apple-touch-icon" href="icon.png">
+  <!-- Place favicon.ico in the root directory -->
+
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/main.css">
+
+  <meta name="theme-color" content="#fafafa">
+</head>
+
+<body>
+  <!--[if IE]>
+    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+  <![endif]-->
+
+  <div class="wrapper">
+      <header>
+          <nav>
+              <a class="btn" href="index.html">Home</a>
+              <a class="btn" href="sex-sect.html">Accidentes por sexo y sector</a>
+              <a class="btn" href="con-mod.html">Accidentes por tipo de contrato</a>
+          </nav>
+      </header>
+      <div class="inner-graph">
+          <div id="accidents-sexsect" style="width:100%; height:500px;"></div>
+      </div>
+  </div>
+  <script src="js/vendor/modernizr-3.7.1.min.js"></script>
+  <script src="https://echarts.baidu.com/dist/echarts.min.js"></script>
+  <script src="js/accidents-sex-sect.js"></script>
+</body>
+
+</html>
