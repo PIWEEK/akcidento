@@ -1,12 +1,12 @@
 module.exports = function(app) {
 
-    const modality = require('../controller/modality.controller.js');
+    const sector = require('../controller/sector.controller.js');
  
     // Create a new modality
     // app.post('/api/modality', modality.create);
  
     // // Retrieve all modalities
-    app.get('/api/modalities', modality.findAll);
+    app.get('/api/sectors', sector.findAll);
  
     // Retrieve a single modality by Id
     // app.get('/api/modalities/:modalityId', modality.findById);

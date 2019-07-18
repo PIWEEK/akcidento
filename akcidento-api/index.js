@@ -21,6 +21,7 @@ app.use(cors(corsOptions))
 require('./route/accidents.route.js')(app);
 require('./route/contract-type.route')(app);
 require('./route/modality.route')(app);
+require('./route/sector.route')(app);
   
 // Create a Server
 const server = app.listen(8080, function () {

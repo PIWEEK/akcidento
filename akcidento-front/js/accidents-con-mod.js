@@ -31,11 +31,7 @@
             type: 'value'
         },
         series: [],
-        color: ['rgba(174,201,96, 0.6)', 'rgba(97,82,146, 0.6)'],
-        animationEasing: 'elasticOut',
-        animationDelay: function (idx) {
-            return Math.random() * 200;
-        }
+        color: ['rgba(219, 139, 0, 0.8)', 'rgba(0, 111, 214, 0.8)']
     };
 
     fetch('http://localhost:8080/api/accidents/type_of_contract')
