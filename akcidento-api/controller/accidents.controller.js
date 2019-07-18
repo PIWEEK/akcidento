@@ -3,10 +3,10 @@ const accidentsBySexSect = db.accidents_by_sexsect;
 const accidentsByContract = db.accidents_by_contract;
 
 exports.handleRequest = (req, res) => {
-    const criteria = req.params.criteria;
+    let criteria = req.params.criteria;
 
     const queryBySexSect = ['sex', 'sector', 'sexsect'];
-    const queryByContract = ['contract', 'modality', 'conmod'];
+    const queryByContract = ['type_of_contract', 'modality', 'conmod'];
 
     const queryBuilder = ((table, options) => {
         table.findAll(options).then((accidents) => {
@@ -73,6 +73,8 @@ exports.handleRequest = (req, res) => {
 
     } else if (queryByContract.includes(criteria)) {
 
+        criteria = criteria === 'contract_type' ? 'type_of_contract': 'modality';
+
         // Attr definition
         attr = [
             [db.sequelize.fn('SUM', db.sequelize.col('total')), 'total'],
@@ -130,6 +132,7 @@ exports.handleRequest = (req, res) => {
         where: filter,
         include
     }
+    
     queryBuilder(model, options);
 
 
