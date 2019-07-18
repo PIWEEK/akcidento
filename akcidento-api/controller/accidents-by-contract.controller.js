@@ -3,10 +3,10 @@ const AccidentsByContract = db.accidents_by_contract;
 
 exports.createAccidentsByContract = (year, contractTypeId, modalityId, total) => {
     AccidentsByContract.create({
-        year: year,
-        contract_type_id: contractTypeId,
-        modality_id: modalityId,
-        total: total
+        year,
+        contractTypeId,
+        modalityId,
+        total
     })
 }
 

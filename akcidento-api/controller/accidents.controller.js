@@ -16,7 +16,7 @@ exports.handleRequest = (req, res) => {
         })
     })
 
-    let options, model, attr, group;
+    let options, model, attr, group, include;
     let filter = {};
 
     if (queryBySexSect.includes(criteria)) {
@@ -24,72 +24,111 @@ exports.handleRequest = (req, res) => {
         attr = [
             [db.sequelize.fn('SUM', db.sequelize.col('total')), 'total'],
             'year',
-            [`${criteria}_id`, `${criteria}`]
         ]
 
         // Group by definition
-        group = [`${criteria}_id`, 'year'];
+        group = [
+            'year',
+            db.sequelize.col(`${criteria}.id`)
+        ];
 
         // Filter definition
         if (!!req.query.sex) filter.sex_id = req.query.sex;
         if (!!req.query.sector) filter.sector_id = req.query.sector;
         if (!!req.query.year) filter.year = req.query.year;
 
+        // Include definition
+        include = [
+            {
+                model: db[criteria],
+                attributes: ['id', 'name']
+            },
+        ]
+
         // Multiselector definition
         if (criteria === 'sexsect') {
-            group = ['year', 'sector_id', 'sex_id'];
+            group = [
+                'year',
+                db.sequelize.col('sex.id'),
+                db.sequelize.col('sector.id')
+            ];
             attr = [
                 [db.sequelize.fn('SUM', db.sequelize.col('total')), 'total'],
                 'year',
-                ['sex_id', 'sex'],
-                ['sector_id', 'sector']
+            ]
+            include = [
+                {
+                    model: db.sex,
+                    attributes: ['id', 'name']
+                },
+                {
+                    model: db.sector,
+                    attributes: ['id', 'name']
+                },
             ]
         }
 
-        // Include definition
-        // include = [{
-        //     model: Task,
-        //     where: { state: Sequelize.col('project.state') }
-        // }]
-
         //Model definition
         model = accidentsBySexSect;
+
     } else if (queryByContract.includes(criteria)) {
+
         // Attr definition
         attr = [
             [db.sequelize.fn('SUM', db.sequelize.col('total')), 'total'],
             'year',
-            [`${criteria}_id`, `${criteria}`]
         ]
 
         // Group by definition
-        group = [`${criteria}_id`, 'year'];
+        group = [
+            'year',
+            db.sequelize.col(`${criteria}.id`)
+        ];
 
         // Filter definition
         if (!!req.query.modality) filter.modality = req.query.modality;
         if (!!req.query.type_of_contract) filter.type_of_contract_id = req.query.type_of_contract;
         if (!!req.query.year) filter.year = req.query.year;
 
+        include = [
+            {
+                model: db[criteria],
+                attributes: ['id', 'name']
+            },
+        ]
+
 
         // Multiselector definition
         if (criteria === 'conmod') {
-            group = ['year', 'contract_type_id', 'modality_id'];
+            group = [
+                'year',
+                db.sequelize.col('contract_type.id'),
+                db.sequelize.col('modality.id')
+            ];
             attr = [
                 [db.sequelize.fn('SUM', db.sequelize.col('total')), 'total'],
                 'year',
-                ['contract_type_id', 'contract_type'],
-                ['modality_id', 'modality']
+            ]
+            include = [
+                {
+                    model: db.contract_type,
+                    attributes: ['id', 'name']
+                },
+                {
+                    model: db.modality,
+                    attributes: ['id', 'name']
+                },
             ]
         }
 
         model = accidentsByContract;
     }
-    console.log(filter);
     options = {
         attributes: attr,
-        group: group,
+        group,
         order: group,
-        where: filter
+        where: filter,
+        include
     }
     queryBuilder(model, options);
 

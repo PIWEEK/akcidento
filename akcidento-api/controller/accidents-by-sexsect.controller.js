@@ -3,10 +3,10 @@ const AccidentsBySexSect = db.accidents_by_sexsect;
 
 exports.createAccidentsBySexSect = (year, sexId, sectorId, total) => {
     AccidentsBySexSect.create({
-        year: year,
-        sex_id: sexId,
-        sector_id: sectorId,
-        total: total
+        year,
+        sexId,
+        sectorId,
+        total
     })
 }
 

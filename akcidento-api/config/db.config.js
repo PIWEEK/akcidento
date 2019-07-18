@@ -33,20 +33,10 @@ const db = {
     'sex': require('../model/sex.model.js')(sequelize, Sequelize),
 };
 
-db.contract_type.hasOne(db.accidents_by_contract, {
-  foreignKey: 'contract_type_id'
-});
+db.accidents_by_contract.belongsTo(db.contract_type);
+db.accidents_by_contract.belongsTo(db.modality);
 
-db.modality.hasOne(db.accidents_by_contract, {
-  foreignKey: 'modality_id'
-});
-
-db.sex.hasOne(db.accidents_by_sexsect, {
-  foreignKey: 'sex_id'
-});
-
-db.sector.hasOne(db.accidents_by_sexsect, {
-  foreignKey: 'sector_id'
-});
+db.accidents_by_sexsect.belongsTo(db.sex);
+db.accidents_by_sexsect.belongsTo(db.sector);
 
 module.exports = db;
