@@ -3,7 +3,6 @@ const bodyParser = require('body-parser');
 const db = require('./config/db.config.js');
 const cors = require('cors')
 
-
 const app = express();
 
 app.use(bodyParser.json())
@@ -14,7 +13,7 @@ app.use(
 )
   
 const corsOptions = {
-  origin: 'http://localhost:4200',
+  origin: 'http://localhost:3600',
   optionsSuccessStatus: 200
 }
 app.use(cors(corsOptions))

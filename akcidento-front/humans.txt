@@ -1,0 +1,16 @@
+# humanstxt.org/
+# The humans responsible & technology colophon
+
+# TEAM
+
+    Xavi -- frot-end -- @xaviju
+
+# THANKS
+
+    Yami -- back-end
+
+# TECHNOLOGY COLOPHON
+
+    CSS3, HTML5
+    Node, sequelizer
+    eCharts
