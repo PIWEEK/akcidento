@@ -31,6 +31,7 @@ const db = {
     'modality': require('../model/modality.model.js')(sequelize, Sequelize),
     'sector': require('../model/sector.model.js')(sequelize, Sequelize),
     'sex': require('../model/sex.model.js')(sequelize, Sequelize),
+    'province': require('../model/province.model.js')(sequelize, Sequelize),
 };
 
 db.accidents_by_contract.belongsTo(db.contract_type);

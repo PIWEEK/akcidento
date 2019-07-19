@@ -1,16 +1,17 @@
 const db = require('../config/db.config.js');
-const Sector = db.sector;
+const Province = db.province;
 
-exports.createSector = (name) => {
-    return Sector.create({
-        name
+exports.createProvince = (name, region) => {
+    return Province.create({
+        name,
+        region
     });
 }
 
 exports.create = (req, res) => {
-    createSector(req.body.name)
-    .then((sector) => {
-        res.send(sector);
+    create(req.body.name, req.body.region)
+    .then((province) => {
+        res.send(province);
     }).catch((err) => {
         res.status(500).send("Error -> " + err);
     })
@@ -18,8 +19,8 @@ exports.create = (req, res) => {
 
 // FETCH all sectors
 exports.findAll = (req, res) => {
-    Sector.findAll().then((sector) => {
-        res.send(sector);
+    Province.findAll().then((province) => {
+        res.send(province);
     }).catch((err) => {
         res.status(500).send("Error -> " + err);
     })
