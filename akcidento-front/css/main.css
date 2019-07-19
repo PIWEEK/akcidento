@@ -103,9 +103,9 @@ textarea {
    ========================================================================== */
 
 .wrapper {
-  width: 100vw;
   min-height: 100vh;
-  /* background: rgba(255, 161, 161, 0.2); */
+  /* background: rgba(255, 161, 161, 0.1); */
+  background: #E8EAF6;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -156,6 +156,13 @@ header a {
   margin: 0 0.5rem;
 }
 
+.misstramis {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  font-size: 0.6rem;
+  color: #222;
+}
 
 /* ==========================================================================
    Helper classes
