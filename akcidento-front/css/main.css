@@ -111,6 +111,10 @@ textarea {
   align-items: center;
 }
 
+.logo {
+  width: 10ch;
+}
+
 header {
   position: sticky;
   top: 0;
@@ -128,6 +132,7 @@ header a {
   flex-direction: column;
   align-self: center;
   justify-content: center;  
+  align-items: center;
   width: 80ch;
   height: 80vh;
   text-align: center;
