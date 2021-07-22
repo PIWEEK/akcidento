@@ -4,7 +4,7 @@
   "description": "Test parse xls",
   "main": "index.js",
   "dependencies": {
-    "xlsx": "^0.14.3"
+    "xlsx": "^0.17.0"
   },
   "devDependencies": {},
   "scripts": {
